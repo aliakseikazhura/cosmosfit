@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
-if (process?.env?.NODE_ENV === "dev") {
-	require('dotenv').config()
-}
+// if (process?.env?.NODE_ENV === "dev") {
+require('dotenv').config()
+// }
 
 const adminDB = admin;
 

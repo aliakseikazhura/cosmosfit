@@ -1,5 +1,5 @@
 const axios = require('axios');
-const logger = require('../../server/logger');
+const logger = require('../logger');
 const FormDataHelper = require('./FormDataHelper');
 
 class ExecutionService {

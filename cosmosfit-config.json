@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "cosmosfit",
+  "private_key_id": "33663325d4de1cba88771007bb3c092a6f5071ee",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCd/G5q4gAD2ln1\ngoNp3R3egBx8DbKey8040uDMhSsUJNWxfXXkjryJ/YmYZiQjjRup/q3nbLZOiiKD\nfQkF4nsIxVUWuOhAsVF+726DeHPgSXs1+2SI8IV6C61llfrtSjoOqEQbcS6RVEfV\n8mOFun8sTwbOgLnVfId0u23PjmMAny/6FXh6TmqJYNB/rU+JGtsZlDnpjcN4QxM6\nMKFEBeHrOnctxpNqijvTecfx3P+yXKRD5lw/7ngKlv77vxdTwesjk8V/RZNtZOH0\nSHANyZqOzaDz21kIg8Gj8LlvwmEb4iVaAym2uNY8tyOX6Ue65dMuYVZHQdmXtJ0v\nLvoSfa3pAgMBAAECggEAAmazkDlb36ZRXNr4iUxlUswuuQx1jFAQg0MopapS+0Q4\nwSQ4SkQvAnTMtljvRodZ76mGWV8UiykY9fEzL0hjHBQ97M515wQC6lt0TUUW05NH\n7zKHud4xx/PdCG80TRtTFB8aCbKjG9Q0kzOZfPvdCOgXeren/pu9GWjSKUTMRXZZ\nYp3G689arNbxJjLcbRTdbxJR0TfKnolspO11eFcH/tsBrqZfYN3DecDNsHxUvtxJ\nis3F9H8JcCDTuX4Wt4ZzLWV6lq5L+BraUN278G/bk9ErU08VSzMBtmlAtwp+HOxO\nz6XbeiMWlF55dc/Mb08brty1W6gBZ+llScxfr+8P0QKBgQDb5KnLng/F3OH3yFks\ncswG52jGbmDg1QjDI9TJuv4Q4lUExcRwlykFLXBlORUiRWnnghqS68q932qKY8kt\nrxCj5mewtQYg45khjH9bWB4HcxAS9nQ/vfVzqB46DB0/UXzt2Wnm3mcNPrSdaace\nMSlVpN8FfJPx8Qd1Tx16XxjjWQKBgQC37XcnZiYqwB0b5o7Mo0KfmkOJIykSbxhd\n6fWuenohn43kwrswHAghQTYJUVKxa+LSRVx8jHi2EmgwoqyoBNxgxG2J7Prbswvt\ngW2zNuHU+SxzDfVTpkuH3Sg8ReNNKCPwzd67B7iGypTU6zwXYN+rpU6F7Kvy0E4T\nS/1aYZGdEQKBgH2lw4Ad6VVeSaCUUqAbWIn5YN1B5QmTsVYP+17qApMTQRFhEEZl\nmYLj2/17CKB0mXc32IdrRIYKS46YRjRcfF2rIkTOq5nPc4jAB2XijAYlsWGkgfiK\nSt6zidIRagTsQz6FpQXOv4PJ+NqZrGyMGtpdQzKXZNIyr9hQRL/P5yDBAoGAZ/C+\noXlMoGQpDxdgI60vfVqER/+iulQmBQyuVofIdS/h1CFn/2wX/BMKIoHepX0+lW21\nMn1/ygTk9Hc580mr8NOQw500tuucFgBKqjidrumRgQOmXDth+8mzbzxfk77XcMIm\n2LMoSKQ7L4gwUVXhkPK+SVjSY0nslWMgLe9thsECgYBA40P2TbuTuSvI+wkQRqsY\nhSqC+RqUS+154qIQHIbFohRE1ty0E7HQ7YEbns2uoSxrDMUkXDVtu2B7StlxLN4T\nw7RpCuCKMa+0zwBCw5MGxWIiFIk2lfACW0QSQXriAJZAYOT1/PNS7Shn4V9L6jGv\nqAyni7YK8y3Bau23800/8Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@cosmosfit.iam.gserviceaccount.com",
+  "client_id": "110311169803507899671",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40cosmosfit.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

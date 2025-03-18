@@ -1,16 +1,44 @@
-const { getRequestsToBookByDate, addBookingByDate, removeBookingsByDate } = require('./DBHelper');
+const { getRequestsToBookByDate, getUserByChatId, addBookingByDate, addUserAccount } = require('./DBHelper');
 const ExecutionService = require('./ExecutionService');
 const Constants = require('../utils/Constants');
-const logger = require('../../server/logger');
+const logger = require('../logger');
 
 
 class BookingService {
 
-    checkCurrentDate = () => {
-        const now = new Date();
-        // logger.info(`now.getHours() = ${now.getUTCHours()}, now.getMinutes() = ${now.getUTCMinutes()}`)
-        return now.getUTCHours() === 4 && now.getUTCMinutes() === 59;
+    async loginToApp(chatId, email, password) {
+        const result = await ExecutionService.executePostRequest({email, password}, Constants.LOGIN);
+        if (result.success) {
+            await addUserAccount(chatId, {email, password, hash: result.user.hash});
+        }
+        return result;
     }
+
+    async createRequestToBook(chatId, booking_id, date) {
+        const userInfo = await getUserByChatId(chatId);
+        if (!userInfo) {
+            throw new Error("User doesn't exist");
+        }
+        const result = await addBookingByDate({booking_id, email: userInfo.email, hash: userInfo.hash}, date);
+        logger.info(JSON.stringify(result))
+    }
+
+    async getPossibleAppointment(date, time) {
+        const listOfAppointmentsByDate = await this.getListAppointmentsByDate(date);
+        // logger.info("listOfAppointmentsByDate= ", JSON.stringify(listOfAppointmentsByDate))
+        const appointmentToBook = listOfAppointmentsByDate?.booking?.reserves?.find(appointment => appointment.time === time);
+        // logger.info("appointmentsToBook= ", JSON.stringify(appointmentToBook))
+        return appointmentToBook;
+    }
+
+    async getListAppointmentsByDate(date) {
+        try {
+            return ExecutionService.executePostRequest({establishment: 1, date}, Constants.GET_BOOKINGS_LIST);
+        } catch (error) {
+            console.error('Error getListAppointmentsByDate:', error.response?.data || error.message);
+            throw error;
+        }
+    } 
 
     getDateToBook = () => {
         const futureDate = new Date();
@@ -30,8 +58,12 @@ class BookingService {
 
         try {
             const dateToBook = this.getDateToBook();
+            console.log(dateToBook)
             let requestsToBook = await getRequestsToBookByDate(dateToBook);
             logger.info(`requestsToBook= ${JSON.stringify(requestsToBook)}`);
+            if (!requestsToBook) {
+                return;
+            }
             requestsToBook = Object.values(requestsToBook).map(request => ({ ...request, date: dateToBook, version: Constants.VERSION }));
             // logger.info("requestsToBook=", JSON.stringify(requestsToBook));
 

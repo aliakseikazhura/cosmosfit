@@ -1,4 +1,4 @@
-const BookingService = require('../functions/services/BookingService');
+const BookingService = require('./controllers/BookingService');
 const logger = require('./logger');
 
 const express = require('express')
@@ -25,7 +25,7 @@ app.get('/addTestData', async (req, res) => {
 })
 
 
-const { getRequestsToBookByDate, addBookingByDate, removeBookingsByDate } = require('../functions/services/DBHelper');
+const { getRequestsToBookByDate, addBookingByDate } = require('./controllers/DBHelper');
 const testFunction = async () => {
     let data = await getRequestsToBookByDate("2025-03-16");
     logger.info(data)
