@@ -20,9 +20,9 @@ async function getRequestsToBookByDate(date) {
 }
 
 async function addUserAccount(chatId, userInfo) {
-    const requestsRef = db.ref(`users`);
+    const requestsRef = db.ref(`users/${chatId}`);
 
-    return requestsRef.set({[chatId] : userInfo});
+    return requestsRef.set(userInfo);
 }
 
 async function addBookingByDate(bookingInfo, date) {
@@ -52,10 +52,19 @@ async function getUserByChatId(chatId) {
         logger.info(`getUserByChatId = ${JSON.stringify(er)}`)
     }
 }
+
+async function testSetCol(chatId, userInfo) {
+    const requestsRef = db.ref(`testCol/${chatId}`);
+
+    return requestsRef.set(userInfo);
+}
+
+
 module.exports = {
     getRequestsToBookByDate,
     addBookingByDate,
     removeBookingsByDate,
     getUserByChatId,
-    addUserAccount
+    addUserAccount,
+    testSetCol
 }

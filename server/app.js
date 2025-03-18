@@ -25,12 +25,13 @@ app.get('/addTestData', async (req, res) => {
 })
 
 
-const { getRequestsToBookByDate, addBookingByDate } = require('./controllers/DBHelper');
+const { getRequestsToBookByDate, addBookingByDate, testSetCol } = require('./controllers/DBHelper');
 const testFunction = async () => {
     let data = await getRequestsToBookByDate("2025-03-16");
     logger.info(data)
     await Promise.all(Object.values(data).map(async (request) => {
-        addBookingByDate(request, "2025-03-20")
+        await addBookingByDate(request, "2025-03-20");
+        await testSetCol("asdasd", {name: "22222"});
     }))
     // await removeBookingsByDate("2025-03-12")
     // data = await getRequestsToBookByDate("2025-03-16");
