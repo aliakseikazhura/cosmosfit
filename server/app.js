@@ -25,7 +25,7 @@ app.get('/addTestData', async (req, res) => {
 })
 
 
-const { getRequestsToBookByDate, addBookingByDate, testSetCol } = require('./controllers/DBHelper');
+const { getRequestsToBookByDate, addBookingByDate, testSetCol, getUserDataByEmail } = require('./controllers/DBHelper');
 const testFunction = async () => {
     let data = await getRequestsToBookByDate("2025-03-16");
     logger.info(data)
@@ -38,6 +38,17 @@ const testFunction = async () => {
 
 }
 
+
+app.get('/testRead', async (req, res) => {
+    logger.info("testRead stated")
+    await testRead();
+    res.send('testRead finished!')
+})
+
+const testRead = async () => {
+    const result = await getUserDataByEmail("leshakazhuro@mail.ru");
+    console.log(result)
+}
 
 
 app.listen(port, () => {

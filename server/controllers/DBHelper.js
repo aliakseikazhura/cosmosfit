@@ -43,7 +43,7 @@ async function getUserByChatId(chatId) {
         const snapshot = await requestsRef.once("value");
 
         if (!snapshot.exists()) {
-            logger.info("User doesn't exist")
+            logger.info("Chat doesn't exist")
             return
         }
 
@@ -51,6 +51,20 @@ async function getUserByChatId(chatId) {
     } catch (er) {
         logger.info(`getUserByChatId = ${JSON.stringify(er)}`)
     }
+}
+
+async function getUserDataByEmail(email) {
+    const usersRef = db.ref(`users`);
+    const snapshot =  await usersRef.orderByChild("email").equalTo(email).once("value");
+
+    if (!snapshot.exists()) {
+        logger.info("User not found")
+        return;
+    }
+
+    let user = null;
+    snapshot.forEach(childSnapshot => user = childSnapshot.val());
+    return user;
 }
 
 async function testSetCol(chatId, userInfo) {
@@ -66,5 +80,6 @@ module.exports = {
     removeBookingsByDate,
     getUserByChatId,
     addUserAccount,
-    testSetCol
+    testSetCol,
+    getUserDataByEmail
 }
