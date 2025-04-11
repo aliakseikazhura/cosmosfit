@@ -6,6 +6,7 @@ const startBot = (ctx) => {
     });
 }
 
+
 const startBooking = ctx => {
     ctx.scene.enter('BOOKING_WIZARD');
 }
