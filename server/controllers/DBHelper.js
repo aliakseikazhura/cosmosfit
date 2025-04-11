@@ -21,18 +21,6 @@ async function getRequestsByChatId(chatId) {
     }
 }
 
-async function addUserAccount(userInfo) {
-    const requestsRef = db.ref(`users/${userInfo.chatId}`);
-
-    return requestsRef.set(userInfo);
-}
-
-async function addBookingByDate(bookingInfo, chatId) {
-    const requestsRef = db.ref(`/requestsToBook/${chatId}_${bookingInfo.booking_id}`);
-
-    return requestsRef.set(bookingInfo);
-}
-
 async function getRequestsByDate(date) {
     const requestsRef = db.ref(`requestsToBook`);
     const snapshot =  await requestsRef.orderByChild("date").equalTo(date).once("value");
@@ -46,18 +34,6 @@ async function getRequestsByDate(date) {
 
     return snapshot.val();
 }
-
-// async function addTestData(bookingInfo, date) {
-//     const requestsRef = db.ref(`/testCol/${date}/${bookingInfo.email}`);
-
-//     return requestsRef.set(bookingInfo);
-// }
-
-// async function removeBookingsByDate(date) {
-//     const requestsRef = db.ref(`/requestsToBook/${date}`);
-
-//     await requestsRef.remove();
-// }
 
 async function getUserByChatId(chatId) {
     try {
@@ -89,14 +65,41 @@ async function getUserDataByEmail(email) {
     return user;
 }
 
+async function saveUserAccountData(userInfo) {
+    const requestsRef = db.ref(`users/${userInfo.chatId}`);
+
+    return requestsRef.set(userInfo);
+}
+
+async function saveBookingInfo(bookingInfo, chatId) {
+    const requestsRef = db.ref(`/requestsToBook/${chatId}_${bookingInfo.booking_id}`);
+
+    return requestsRef.set(bookingInfo);
+}
+
+
+
+// async function addTestData(bookingInfo, date) {
+//     const requestsRef = db.ref(`/testCol/${date}/${bookingInfo.email}`);
+
+//     return requestsRef.set(bookingInfo);
+// }
+
+// async function removeBookingsByDate(date) {
+//     const requestsRef = db.ref(`/requestsToBook/${date}`);
+
+//     await requestsRef.remove();
+// }
+
+
 
 module.exports = {
     // removeBookingsByDate,
     // addTestData,
-    getUserByChatId,
-    addUserAccount,
-    getUserDataByEmail,
     getRequestsByChatId,
-    addBookingByDate,
-    getRequestsByDate
+    getRequestsByDate,
+    getUserByChatId,
+    getUserDataByEmail,
+    saveUserAccountData,
+    saveBookingInfo,
 }

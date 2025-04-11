@@ -1,4 +1,4 @@
-const { getRequestsByDate, getUserByChatId, addBookingByDate, addUserAccount, getRequestsByChatId} = require('./DBHelper');
+const { getRequestsByDate, getUserByChatId, saveBookingInfo, saveUserAccountData, getRequestsByChatId} = require('./DBHelper');
 const ExecutionService = require('./ExecutionService');
 const Constants = require('../utils/Constants');
 const logger = require('../logger');
@@ -13,7 +13,7 @@ class BookingService {
     async loginToApp(chatId, email, password) {
         const result = await ExecutionService.executePostRequest({email, password}, Constants.LOGIN);
         if (result.success) {
-            await addUserAccount({email, password, chatId, hash: result.user.hash});
+            await saveUserAccountData({email, password, chatId, hash: result.user.hash});
         }
         return result;
     }
@@ -27,7 +27,7 @@ class BookingService {
         if (!userInfo) {
             throw new Error("User doesn't exist");
         }
-        const result = await addBookingByDate({...bookingInfo, email: userInfo.email, hash: userInfo.hash}, chatId);
+        const result = await saveBookingInfo({...bookingInfo, email: userInfo.email, hash: userInfo.hash}, chatId);
         logger.info(JSON.stringify(result))
     }
 
