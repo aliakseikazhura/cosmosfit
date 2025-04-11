@@ -3,7 +3,7 @@ require('dotenv').config()
 const { Telegraf, Scenes, session } = require('telegraf');
 const { Stage } = Scenes;
 const { CMD_TEXT } = require('./utils/Constants');
-const { startBot, cancel, startBooking, showBookings, login } = require('./controllers/Commands');
+const { startBot, cancel, startBooking, showBookings, login } = require('./controllers/Commands1');
 const bookingWizard = require('./scenes/BookingScene');
 const loginWizard = require('./scenes/LoginScene');
 const requestsToBookScene = require('./scenes/RequestsToBookScene');
