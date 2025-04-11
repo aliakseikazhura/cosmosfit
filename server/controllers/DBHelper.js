@@ -6,8 +6,8 @@ const logger = require('../logger');
 async function getRequestsByChatId(chatId) {
     try {
         const snapshot = await db.ref(`/requestsToBook`).orderByKey()
-            .startAt(chatId + "_")
-            .endAt(chatId + "_\uf8ff")
+            .startAt(`${chatId}_`)
+            .endAt(`${chatId}_\uf8ff`)
             .once("value");
 
         if (!snapshot.exists()) {
