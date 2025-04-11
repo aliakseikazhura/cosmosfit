@@ -1,8 +1,8 @@
 const { Scenes, Composer } = require('telegraf');
 const { WizardScene } = Scenes;
-const { cancelButtonMenu, confirmBookingButtons, startButtonMenu } = require('../utils/buttons');
-const { CMD_TEXT } = require('../utils/consts');
-const { cancel } = require('../controllers/commands');
+const { cancelButtonMenu, confirmBookingButtons, startButtonMenu } = require('../utils/Buttons');
+const { CMD_TEXT } = require('../utils/Constants');
+const { cancel } = require('../controllers/Commands');
 const BookingService = require('../controllers/BookingService');
 
 // Function to validate date format (YYYY-MM-DD)
@@ -64,6 +64,8 @@ step2.on('text', async (ctx) => {
         return ctx.scene.leave();
     }
     ctx.session.booking_id = appointment.id;
+    ctx.session.time = appointment.time;
+    ctx.session.type = appointment.type;
     ctx.session.lastMessageId = ctx.message.message_id;
 
     ctx.reply(`Confirm your appointment:\n${appointment.date} at ${appointment.time}\nTitle: ${appointment.type}\nCoach: ${appointment.coach}`,{
@@ -79,14 +81,9 @@ step2.on('text', async (ctx) => {
 // Step 3: Confirmation
 const step3 = new Composer();
 step3.action('CONFIRM_APPOINTMENT', async (ctx) => {
-    // console.log("ctx.chat.id = ", ctx.chat.id)
-    // console.log("ctx.session.booking_id = ", ctx.session.booking_id)
-    // console.log("ctx.session.appointmentDate = ", ctx.session.appointmentDate)
-    // console.log("ctx.session.lastMessageId = ", ctx.session.lastMessageId)
-
     try {
         const bookingService = new BookingService();
-        await bookingService.createRequestToBook(ctx.chat.id, ctx.session.booking_id, ctx.session.appointmentDate);
+        await bookingService.createRequestToBook({booking_id: ctx.session.booking_id, date: ctx.session.appointmentDate, time: ctx.session.time, type: ctx.session.type}, ctx.chat.id);
     
         ctx.deleteMessage();
 

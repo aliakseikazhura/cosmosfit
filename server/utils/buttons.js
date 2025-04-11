@@ -1,9 +1,10 @@
 const { Markup } = require('telegraf');
-const { CMD_TEXT } = require('./consts');
+const { CMD_TEXT } = require('./Constants');
 
 const startButtonMenu =
     Markup.keyboard([
         [CMD_TEXT.startBooking],
+        [CMD_TEXT.showBookings],
         [CMD_TEXT.login]
     ]).resize()
 

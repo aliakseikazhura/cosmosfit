@@ -1,4 +1,4 @@
-const {startButtonMenu} = require("../utils/buttons");
+const {startButtonMenu} = require("../utils/Buttons");
 
 const startBot = (ctx) => {
     ctx.reply('Welcome!', {
@@ -8,6 +8,10 @@ const startBot = (ctx) => {
 
 const startBooking = ctx => {
     ctx.scene.enter('BOOKING_WIZARD');
+}
+
+const showBookings = ctx => {
+    ctx.scene.enter('REQUESTS_TO_BOOK_WIZARD');
 }
 
 const login = ctx => {
@@ -25,5 +29,6 @@ module.exports = {
     startBot,
     cancel,
     startBooking,
+    showBookings,
     login
 }

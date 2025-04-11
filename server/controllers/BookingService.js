@@ -1,33 +1,39 @@
-const { getRequestsToBookByDate, getUserByChatId, addBookingByDate, addUserAccount } = require('./DBHelper');
+const { getRequestsByDate, getUserByChatId, addBookingByDate, addUserAccount, getRequestsByChatId} = require('./DBHelper');
 const ExecutionService = require('./ExecutionService');
 const Constants = require('../utils/Constants');
 const logger = require('../logger');
 
 
 class BookingService {
+    
+    generateGUID = () => {
+        return crypto.randomUUID().replace(/-/g, '');
+    }
 
     async loginToApp(chatId, email, password) {
         const result = await ExecutionService.executePostRequest({email, password}, Constants.LOGIN);
         if (result.success) {
-            await addUserAccount(chatId, {email, password, hash: result.user.hash});
+            await addUserAccount({email, password, chatId, hash: result.user.hash});
         }
         return result;
     }
 
-    async createRequestToBook(chatId, booking_id, date) {
+    async getUserRequests(chatId) {
+        return getRequestsByChatId(chatId);
+    }
+
+    async createRequestToBook(bookingInfo, chatId) {
         const userInfo = await getUserByChatId(chatId);
         if (!userInfo) {
             throw new Error("User doesn't exist");
         }
-        const result = await addBookingByDate({booking_id, email: userInfo.email, hash: userInfo.hash}, date);
+        const result = await addBookingByDate({...bookingInfo, email: userInfo.email, hash: userInfo.hash}, chatId);
         logger.info(JSON.stringify(result))
     }
 
     async getPossibleAppointment(date, time) {
         const listOfAppointmentsByDate = await this.getListAppointmentsByDate(date);
-        // logger.info("listOfAppointmentsByDate= ", JSON.stringify(listOfAppointmentsByDate))
         const appointmentToBook = listOfAppointmentsByDate?.booking?.reserves?.find(appointment => appointment.time === time);
-        // logger.info("appointmentsToBook= ", JSON.stringify(appointmentToBook))
         return appointmentToBook;
     }
 
@@ -59,26 +65,22 @@ class BookingService {
         try {
             const dateToBook = this.getDateToBook();
             console.log(dateToBook)
-            let requestsToBook = await getRequestsToBookByDate(dateToBook);
+            let requestsToBook = await getRequestsByDate(dateToBook);
             logger.info(`requestsToBook= ${JSON.stringify(requestsToBook)}`);
             if (!requestsToBook) {
                 return;
             }
-            requestsToBook = Object.values(requestsToBook).map(request => ({ ...request, date: dateToBook, version: Constants.VERSION }));
-            // logger.info("requestsToBook=", JSON.stringify(requestsToBook));
+            requestsToBook = Object.values(requestsToBook).map(request => ({ ...request, version: Constants.VERSION }));
 
             const timerDelay = this.getTimerDelay();
             logger.info(`dateToBook = ${dateToBook}`)
             logger.info(`timerDelay= ${timerDelay}`)
 
-            logger.info(`Before timeout: ${new Date().toISOString()}`);
             setTimeout(async () => {
                 logger.info(`SetTimeout started: ${new Date().toISOString()}`);
                 await Promise.all(requestsToBook.map(request => this.bookSingleAppointment(request)));
-                logger.info(`SetTimeout finished: ${new Date().toISOString()}`);
             }, timerDelay);
 
-            logger.info(`Scheduled function finished at: ${new Date().toISOString()}`);
         } catch (error) {
             logger.info(`Error:`, error);
         }

@@ -1,8 +1,8 @@
 const { Scenes, Composer } = require('telegraf');
 const { WizardScene } = Scenes;
-const { cancelButtonMenu, startButtonMenu } = require('../utils/buttons');
-const { CMD_TEXT } = require('../utils/consts');
-const { cancel } = require('../controllers/commands');
+const { cancelButtonMenu, startButtonMenu } = require('../utils/Buttons');
+const { CMD_TEXT } = require('../utils/Constants');
+const { cancel } = require('../controllers/Commands');
 const BookingService = require('../controllers/BookingService');
 
 
