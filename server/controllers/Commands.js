@@ -1,4 +1,4 @@
-const {startButtonMenu} = require("../utils/Buttons1");
+const {startButtonMenu} = require("../utils/Buttons");
 
 const startBot = (ctx) => {
     ctx.reply('Welcome!', {

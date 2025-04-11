@@ -1,6 +1,6 @@
 const { Scenes, Composer } = require('telegraf');
 const { WizardScene } = Scenes;
-const { startButtonMenu } = require('../utils/Buttons1');
+const { startButtonMenu } = require('../utils/Buttons');
 const BookingService = require('../controllers/BookingService');
 
 function getReplyText(requests = {}) {
